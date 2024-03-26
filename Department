@@ -1,0 +1,46 @@
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+public class Department {
+    private int id;
+    private String name;
+
+    public Department(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public static void main(String[] args) {
+     
+        String url = "jdbc:mysql://localhost/departments";
+        String user = "Pgeethika7";
+        String password = "@Kumopha12";
+
+     
+        Department department = new Department(1, "IT");
+
+       
+        String sql = "INSERT INTO department (id, name) VALUES (" + department.getId() + ", '" + department.getName() + "')";
+
+        try (Connection conn = DriverManager.getConnection(url, user, password);
+             Statement stmt = conn.createStatement()) {
+
+            stmt.executeUpdate(sql);
+
+            System.out.println("Department inserted successfully!");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
